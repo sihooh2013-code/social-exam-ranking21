@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>중1 사회 2학기 모의평가</title>
+<style>
+:root{--ink:#202a35;--muted:#687584;--line:#dce3e9;--paper:#fff;--bg:#f3f6f8;--blue:#245b83;--pale:#eaf2f7;--orange:#e68a42}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"Noto Sans KR",sans-serif;line-height:1.65}
+header{background:linear-gradient(115deg,#173d5b,#2d6c91);color:white;padding:25px 18px 22px}
+.head{max-width:920px;margin:auto}.eyebrow{font-size:13px;opacity:.85;letter-spacing:.08em}.head h1{margin:4px 0;font-size:clamp(23px,5vw,32px)}.head p{margin:4px 0 0;color:#e2edf4;font-size:14px}
+main{max-width:920px;margin:20px auto;padding:0 14px 60px}
+.panel,.question,.result{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:18px;margin-bottom:14px;box-shadow:0 3px 12px #24394b08}
+.info{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}.info div{background:#f5f8fa;border-radius:10px;padding:10px;text-align:center}.info b{display:block;font-size:19px;color:var(--blue)}.info span{font-size:12px;color:var(--muted)}
+.progressrow{display:flex;justify-content:space-between;font-size:13px;color:var(--muted);margin:14px 0 6px}.bar{height:8px;background:#e8edf1;border-radius:9px;overflow:hidden}.bar>i{display:block;height:100%;width:0;background:var(--orange);transition:width .2s}
+.controls{display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap}.timer{font-weight:700;color:var(--blue);font-variant-numeric:tabular-nums}
+h2.section{font-size:18px;margin:25px 3px 10px}.question h3{font-size:16px;margin:0 0 12px}.qnum{display:inline-grid;place-items:center;width:29px;height:29px;background:var(--pale);color:var(--blue);border-radius:8px;margin-right:7px;font-size:14px}
+.stem{background:#f7f9fa;border:1px solid #e8edf0;border-radius:10px;padding:12px;margin:10px 0 13px;font-size:14px;white-space:pre-line}
+.options{display:grid;gap:8px}.option{display:flex;align-items:flex-start;gap:9px;border:1px solid var(--line);border-radius:9px;padding:9px 11px;cursor:pointer;font-size:14px}.option:hover{background:#f6fafc}.option input{margin-top:5px;accent-color:var(--blue)}.option:has(input:checked){border-color:#6b9bb9;background:#eff6fa}
+textarea{width:100%;min-height:95px;border:1px solid var(--line);border-radius:9px;padding:11px;font:inherit;resize:vertical}
+button{border:0;border-radius:10px;padding:11px 17px;font:inherit;font-weight:700;cursor:pointer}.primary{background:var(--blue);color:white}.secondary{background:#e9eef2;color:#334454}.danger{background:#fff0e8;color:#a44e22}.small{font-size:13px;padding:8px 12px}
+.actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:16px}
+.hidden{display:none!important}.notice{font-size:13px;color:var(--muted)}.result h2{margin-top:0}.score{font-size:34px;font-weight:800;color:var(--blue)}.review{border-top:1px solid var(--line);padding:12px 0}.correct{color:#16734b;font-weight:700}.wrong{color:#b34b37;font-weight:700}.answer{font-size:14px;color:var(--muted);margin-top:5px}.selfscore{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:8px}.selfscore input{width:75px;padding:7px;border:1px solid var(--line);border-radius:8px;font:inherit}
+footer{text-align:center;color:#87929c;font-size:12px;padding:20px}
+.lb-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}.lb-grid input{width:100%;padding:10px;border:1px solid var(--line);border-radius:9px;font:inherit}.ranktable{width:100%;border-collapse:collapse;font-size:14px}.ranktable th,.ranktable td{padding:9px 7px;border-bottom:1px solid var(--line);text-align:left}.ranktable th{color:var(--muted);font-size:12px}.ranknum{font-weight:800;color:var(--blue)}.status{font-size:13px;color:var(--muted);margin:8px 0}.sqlbox{background:#172b3a;color:#e3edf4;border-radius:9px;padding:12px;white-space:pre-wrap;overflow-wrap:anywhere;font:12px/1.5 ui-monospace,monospace}.lb-form{display:grid;grid-template-columns:1fr auto;gap:8px}.lb-form input{min-width:0;padding:10px;border:1px solid var(--line);border-radius:9px;font:inherit}
+@media(max-width:560px){.lb-grid{grid-template-columns:1fr}.ranktable{font-size:12px}.ranktable th,.ranktable td{padding:7px 4px}}
+@media(max-width:560px){.info{grid-template-columns:repeat(3,1fr)}.panel,.question,.result{padding:14px}.option{font-size:13px}}
+</style>
+</head>
+<body>
+<header><div class="head"><div class="eyebrow">2학기 기말고사 대비 · 모의 평가</div><h1>중학교 1학년 사회 9~12단원</h1><p>천재교과서 참고 자료 기반 · 실전형 23문항</p></div></header>
+<main>
+<section class="panel">
+ <div class="info"><div><b>23문항</b><span>객관식 20 + 주관식 3</span></div><div><b>100점</b><span>객관식 80 + 주관식 20</span></div><div><b>40분</b><span>권장 시험 시간</span></div></div>
+ <div class="progressrow"><span id="progressText">응답 0 / 23</span><span class="timer" id="timer">40:00</span></div><div class="bar"><i id="progress"></i></div>
+ <div class="controls" style="margin-top:14px"><span class="notice">객관식은 문항당 4점입니다. 주관식은 제출 후 예시 답안을 확인하세요.</span><button class="secondary small" id="timerBtn" onclick="toggleTimer()">타이머 일시정지</button></div>
+</section>
+
+<section class="panel" id="leaderboard">
+ <div class="controls"><div><h2 style="margin:0">🏆 전체 사용자 온라인 랭킹</h2><p class="notice" style="margin:3px 0">Supabase 데이터베이스 연결 후 모든 사용자의 기록이 공유됩니다.</p></div><button class="secondary small" onclick="loadLeaderboard()">랭킹 새로고침</button></div>
+ <div id="lbStatus" class="status">온라인 랭킹 연결 설정이 필요합니다.</div>
+ <div style="overflow-x:auto"><table class="ranktable"><thead><tr><th>순위</th><th>닉네임</th><th>점수</th><th>풀이 시간</th></tr></thead><tbody id="lbRows"><tr><td colspan="4" class="notice">아직 랭킹 데이터가 없습니다.</td></tr></tbody></table></div>
+ <details style="margin-top:14px"><summary style="cursor:pointer;font-weight:700">자체 서버 연결 설정</summary>
+  <p class="notice">서버 프로그램을 Node.js 호스팅에 배포한 뒤 발급된 공개 HTTPS 주소를 입력하세요. 서버 주소가 있어야 여러 사용자의 랭킹이 공유됩니다.</p>
+  <label><span class="notice">온라인 랭킹 서버 주소</span><input id="serverUrl" style="width:100%;padding:10px;border:1px solid var(--line);border-radius:9px;font:inherit" placeholder="https://your-ranking-server.example.com"></label>
+  <button class="primary small" style="margin-top:10px" onclick="saveServerConfig()">서버 연결 저장 및 테스트</button>
+  <p class="notice">서버 주소는 https://로 시작해야 합니다. 개인 정보 대신 닉네임만 사용하세요.</p>
+ </details>
+</section>
+<div id="exam">
+<h2 class="section">Ⅰ. 객관식 · 각 4점</h2>
+<div id="mc"></div>
+<h2 class="section">Ⅱ. 주관식 · 6점 / 7점 / 7점</h2>
+<div id="sa"></div>
+<div class="panel"><p><b>제출 전 확인</b></p><p class="notice">답안을 제출하면 객관식 점수와 정답·해설이 공개됩니다. 주관식은 예시 답안과 비교한 뒤 본인이 점수를 입력하세요.</p><button class="primary" style="width:100%" onclick="submitExam()">답안 제출 및 채점하기</button></div>
+</div>
+<section id="results" class="result hidden">
+ <h2>채점 결과</h2><div class="score" id="mcScore">0 / 80점</div><p id="mcSummary"></p>
+ <div id="review"></div>
+ <h3>주관식 자기 채점</h3><p class="notice">예시 답안의 핵심 내용이 포함되었는지 확인하고 점수를 입력하세요.</p>
+ <div id="saReview"></div>
+ <div class="panel" style="margin-top:16px"><b>최종 점수</b><div class="score" id="totalScore">— / 100점</div><p class="notice">주관식 점수를 입력하면 최종 점수가 계산됩니다.</p></div>
+ <section class="panel" style="margin-top:16px">
+  <h3 style="margin-top:0">내 기록을 온라인 랭킹에 등록</h3>
+  <p class="notice">주관식 점수까지 입력한 뒤 닉네임을 정해 등록하세요. 닉네임은 1~16자이며 실명이나 연락처는 입력하지 마세요.</p>
+  <div class="lb-form"><input id="nickname" maxlength="16" placeholder="랭킹 닉네임"><button class="primary" onclick="submitLeaderboard()">랭킹 등록</button></div>
+  <div id="submitStatus" class="status"></div>
+ </section>
+ <button class="secondary" onclick="location.reload()">다시 풀기</button>
+</section>
+</main><footer>학습용 자체 제작 모의평가 · 실제 학교 시험과 문항 및 배점이 다를 수 있습니다.</footer>
+<script>
+const questions=[
+["다음 사례에서 지켜지지 않은 선거의 기본 원칙은?","어느 지역의 선거에서 일정한 재산 기준을 충족한 사람에게만 투표권을 주었다.",["보통 선거","평등 선거","직접 선거","비밀 선거","다수 대표제"],0,"보통 선거는 일정한 연령에 도달한 모든 국민에게 원칙적으로 선거권을 보장하는 원칙이다."],
+["정치적 주장이 같은 사람들이 정치권력을 획득하고 정권을 담당하기 위해 만든 단체는?","",["이익 집단","시민 단체","정당","지방 의회","언론"],2,"정당은 정치적 견해가 비슷한 사람들이 정권 획득과 정치적 목적 실현을 위해 만든 단체이다."],
+["다음 중 이익 집단의 활동으로 가장 적절한 것은?","",["공직 후보자를 공천한다.","특정 직업 종사자의 이익을 위해 정책 변화를 요구한다.","국가의 법률을 최종적으로 심판한다.","지방 자치 단체의 예산을 의결한다.","국민을 대신해 재판을 진행한다."],1,"이익 집단은 구성원의 특수한 이익을 실현하기 위해 정책 결정 과정에 영향력을 행사한다."],
+["지방 자치 제도에 대한 설명으로 옳은 것은?","",["지방 자치 단체장은 중앙 정부가 임명한다.","지방 의회 의원은 주민이 선거로 선출한다.","지방 의회는 사법권을 행사한다.","지방 자치 제도는 주민 참여를 제한한다.","지방 자치 단체는 법률을 마음대로 제정한다."],1,"지방 의회 의원과 지방 자치 단체장은 주민의 선거로 선출되며, 지역의 일을 자율적으로 처리한다."],
+["정치 과정의 일반적인 흐름으로 가장 알맞은 것은?","",["정책 평가 → 정책 결정 → 이익 표출 → 정책 집행","이익 표출 → 이익 집약 → 정책 결정 → 정책 집행 및 평가","정책 집행 → 이익 집약 → 정책 평가 → 이익 표출","이익 집약 → 정책 평가 → 이익 표출 → 정책 결정","정책 결정 → 이익 표출 → 정책 집행 → 이익 집약"],1,"시민과 집단의 요구가 표출되고 정당·의회 등이 이를 모아 정책으로 결정한 뒤 집행하고 평가한다."],
+["다음 중 시민 단체의 활동으로 가장 적절한 것은?","",["특정 기업의 이윤을 높이기 위해 활동한다.","정권 획득을 목적으로 후보자를 공천한다.","환경 보호를 위해 시민 캠페인을 벌인다.","법원의 판결을 대신 내린다.","국회의원을 임명한다."],2,"시민 단체는 공익 실현과 사회 문제 해결을 위해 자발적으로 활동한다."],
+["법의 궁극적인 목적에 대한 설명으로 가장 적절한 것은?","",["모든 범죄자를 처벌하는 것만을 목적으로 한다.","개인의 권리를 보호하고 사회 질서를 유지하는 것이다.","국가 기관의 권한을 무제한으로 보장하는 것이다.","개인의 자유를 최대한 제한하는 것이다.","갈등을 무조건 한쪽의 희생으로 해결하는 것이다."],1,"법은 개인의 권리를 보호하고 사회 질서를 유지하며 정의를 실현하는 것을 목적으로 한다."],
+["다음 중 민법이 주로 다루는 관계는?","",["국가와 범죄자의 관계","개인과 개인 사이의 권리와 의무 관계","국가 기관 사이의 권한 다툼","국가의 외교 관계","선거 관리 기관과 후보자의 관계"],1,"민법은 개인 사이의 재산 관계와 가족 관계 등 사적인 생활 관계를 규율한다."],
+["형법에 대한 설명으로 옳은 것은?","",["개인 간 계약의 내용을 정한다.","범죄와 그에 대한 형벌을 규정한다.","근로자의 최저 임금을 정한다.","국가 기관의 조직만을 규정한다.","모든 민사 분쟁을 해결한다."],1,"형법은 어떤 행위가 범죄인지와 그 범죄에 어떤 형벌을 부과할지를 정한다."],
+["사회법이 등장한 주된 배경으로 알맞은 것은?","",["개인의 자유로운 계약만으로 모든 문제가 해결되었기 때문에","산업화 과정에서 발생한 빈부 격차와 사회적 약자 문제를 해결하기 위해","국가가 모든 사적 거래를 없애기 위해","재판을 폐지하기 위해","선거권을 제한하기 위해"],1,"사회법은 사적 자치만으로 해결하기 어려운 사회 문제를 해결하고 사회적 약자를 보호하기 위해 발달했다."],
+["다음 중 사회법에 해당하는 사례는?","",["친구에게 빌린 돈을 갚지 않은 분쟁","근로자의 최저 임금과 근로 조건을 정한 법","물건을 사고파는 개인 간 계약","상속 재산을 둘러싼 가족 간 분쟁","절도죄에 대한 형벌 규정"],1,"근로 기준법 등 노동 관계를 규율하는 법은 사회법에 해당한다."],
+["민사 재판에 대한 설명으로 옳은 것은?","",["범죄 여부와 형벌을 결정한다.","개인 간 권리와 의무에 관한 다툼을 해결한다.","검사가 피고인에게 형벌을 선고한다.","반드시 국가만 원고가 된다.","범죄자의 유무죄만 판단한다."],1,"민사 재판은 개인 간의 금전, 계약, 손해 배상 등 권리·의무에 관한 분쟁을 해결한다."],
+["형사 재판에 대한 설명으로 옳은 것은?","",["개인 간 계약 분쟁을 해결한다.","검사가 공소를 제기하고 법원이 범죄 여부와 형벌을 판단한다.","원고와 피고가 반드시 개인이다.","재판의 목적은 손해 배상액 결정뿐이다.","당사자의 합의만으로 판결이 확정된다."],1,"형사 재판은 국가가 형벌권을 행사하는 절차로, 검사의 공소 제기와 법원의 판단이 중심이 된다."],
+["공정한 재판을 위한 원칙에 대한 설명으로 옳지 않은 것은?","",["공개 재판주의는 재판을 원칙적으로 공개하는 것이다.","증거 재판주의는 증거를 바탕으로 사실을 인정하는 것이다.","법관은 독립하여 헌법과 법률에 따라 심판해야 한다.","증거가 없어도 여론만으로 유죄를 판단할 수 있다.","피고인에게 방어할 기회가 보장되어야 한다."],3,"증거 재판주의에 따라 사실 인정은 증거를 바탕으로 해야 하며 여론만으로 유죄를 판단할 수 없다."],
+["다음 중 기본권의 종류와 사례가 바르게 연결된 것은?","",["평등권 - 국가 정책에 참여할 권리","참정권 - 선거에 참여할 권리","사회권 - 신체의 자유를 보장받을 권리","자유권 - 교육을 받을 권리","청구권 - 차별받지 않을 권리"],1,"참정권은 국민이 국가의 정치 과정에 참여할 수 있는 권리로 선거권 등이 포함된다."],
+["헌법에 기본권을 규정하는 가장 중요한 이유는?","",["국가 권력을 제한 없이 행사하게 하려고","국민의 기본적인 권리와 자유를 보장하려고","모든 국민의 직업을 같게 만들려고","법원의 역할을 없애려고","국민의 정치 참여를 막으려고"],1,"헌법은 국민의 기본권을 보장하고 국가 권력이 이를 함부로 침해하지 못하도록 한다."],
+["기본권 제한에 대한 설명으로 옳은 것은?","",["국가는 필요하다고 판단하면 어떤 기본권이든 제한할 수 있다.","기본권은 법률에 근거해 필요한 경우에 한하여 제한할 수 있으며 본질적인 내용은 침해할 수 없다.","기본권은 어떠한 경우에도 제한할 수 없다.","행정 기관의 구두 명령만으로 기본권을 제한할 수 있다.","다수결로 결정하면 기본권의 본질적 내용도 침해할 수 있다."],1,"헌법 제37조 제2항은 국가 안전 보장·질서 유지·공공복리를 위해 필요한 경우 법률로 제한할 수 있지만 본질적 내용은 침해할 수 없다고 정한다."],
+["국가인권위원회의 역할로 가장 적절한 것은?","",["위헌 법률 여부를 최종적으로 결정한다.","인권 침해와 차별 행위를 조사하고 구제 및 개선을 권고한다.","모든 형사 사건의 형벌을 선고한다.","국가 예산을 심의하고 확정한다.","지방 의회 의원을 선출한다."],1,"국가인권위원회는 인권 침해와 차별 행위를 조사하고 구제 조치나 제도 개선을 권고한다."],
+["헌법재판소의 역할로 옳은 것은?","",["개인 간 빌린 돈의 반환을 판결한다.","범죄자에게 형벌을 선고한다.","헌법 소원 심판 등을 통해 공권력에 의한 기본권 침해를 구제한다.","지방 자치 단체의 예산을 편성한다.","모든 민원 사항을 직접 해결한다."],2,"헌법재판소는 헌법 소원 심판 등을 통해 공권력에 의한 기본권 침해 여부를 심판한다."],
+["다음 중 기본권 침해를 구제받는 방법으로 가장 적절한 것은?","",["권리를 침해당해도 어떤 기관에도 도움을 요청할 수 없다.","침해 유형에 따라 법원, 헌법재판소, 국가인권위원회 등 적절한 기관에 구제를 요청한다.","모든 기본권 침해는 경찰서에서만 해결한다.","개인의 판단만으로 법률의 효력을 없앨 수 있다.","인터넷 여론만으로 국가 기관의 결정을 취소할 수 있다."],1,"기본권 침해의 원인과 유형에 따라 법원, 헌법재판소, 국가인권위원회 등에서 구제를 요청할 수 있다."]
+];
+const essays=[
+["정치 과정에서 시민이 자신의 요구나 의견을 사회에 알리는 활동을 무엇이라고 하는지 쓰고, 한 가지 사례를 제시하시오.",6,"이익 표출. 예: 주민이 공원 조성을 요구하는 청원이나 집회에 참여하는 것."],
+["헌법 제37조 제2항에 따라 국가가 국민의 기본권을 제한할 수 있는 목적 두 가지를 쓰고, 제한할 때 지켜야 할 원칙 한 가지를 서술하시오.",7,"국가 안전 보장, 질서 유지, 공공복리 중 두 가지. 제한은 필요한 경우 법률로 해야 하며 기본권의 본질적인 내용은 침해할 수 없다."],
+["민사 재판과 형사 재판의 차이를 재판의 대상 또는 목적을 중심으로 각각 서술하시오.",7,"민사 재판은 개인 간 권리와 의무에 관한 다툼을 해결한다. 형사 재판은 범죄 여부를 판단하고 범죄가 인정되면 형벌을 정한다."]
+];
+const mc=document.getElementById('mc'), sa=document.getElementById('sa');
+questions.forEach((q,i)=>{let d=document.createElement('section');d.className='question';d.id='q'+i;d.innerHTML=`<h3><span class="qnum">${i+1}</span>${q[0]}</h3>${q[1]?`<div class="stem">${q[1]}</div>`:''}<div class="options">${q[2].map((o,j)=>`<label class="option"><input type="radio" name="q${i}" value="${j}"><span>${j+1}. ${o}</span></label>`).join('')}</div>`;mc.appendChild(d)});
+essays.forEach((q,i)=>{let d=document.createElement('section');d.className='question';d.innerHTML=`<h3><span class="qnum">${21+i}</span>${q[0]}</h3><div class="notice">배점 ${q[1]}점</div><textarea id="essay${i}" placeholder="답안을 작성하세요."></textarea>`;sa.appendChild(d)});
+function updateProgress(){let n=0;questions.forEach((_,i)=>{if(document.querySelector(`input[name=q${i}]:checked`))n++});essays.forEach((_,i)=>{if(document.getElementById('essay'+i).value.trim())n++});document.getElementById('progressText').textContent=`응답 ${n} / 23`;document.getElementById('progress').style.width=(n/23*100)+'%'}
+document.addEventListener('change',updateProgress);document.addEventListener('input',updateProgress);
+let remaining=2400,interval=null,paused=false;
+let finalMCScore=0, submittedToBoard=false;
+function tick(){if(remaining>0){remaining--;document.getElementById('timer').textContent=String(Math.floor(remaining/60)).padStart(2,'0')+':'+String(remaining%60).padStart(2,'0')}else{clearInterval(interval);document.getElementById('timer').textContent='시간 종료'}}
+interval=setInterval(tick,1000);
+function toggleTimer(){paused=!paused;if(paused){clearInterval(interval);document.getElementById('timerBtn').textContent='타이머 다시 시작'}else{interval=setInterval(tick,1000);document.getElementById('timerBtn').textContent='타이머 일시정지'}}
+function escapeHtml(value){return value.replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]))}
+function submitExam(){if(!confirm('답안을 제출하고 채점할까요? 제출 후에는 답안을 수정할 수 없습니다.'))return;clearInterval(interval);let score=0,correct=0,review=document.getElementById('review');questions.forEach((q,i)=>{let a=document.querySelector(`input[name=q${i}]:checked`),v=a?Number(a.value):-1,ok=v===q[3];if(ok){score+=4;correct++}let r=document.createElement('div');r.className='review';r.innerHTML=`<b>${i+1}번 · ${ok?'<span class="correct">정답</span>':'<span class="wrong">오답 / 미응답</span>'}</b><div class="answer">정답: ${q[3]+1}번 ${q[2][q[3]]}<br>${q[4]}</div>`;review.appendChild(r)});finalMCScore=score;document.getElementById('mcScore').textContent=`${score} / 80점`;document.getElementById('mcSummary').textContent=`객관식 ${correct}문항 정답 / 20문항`;let sr=document.getElementById('saReview');essays.forEach((q,i)=>{let d=document.createElement('div');d.className='review';let myAnswer=document.getElementById('essay'+i).value.trim();d.innerHTML=`<b>${21+i}번 · ${q[1]}점</b><div class="answer" style="margin-top:10px;padding:10px;background:#f5f8fa;border-radius:9px"><b>내가 작성한 답안</b><br>${myAnswer?escapeHtml(myAnswer).replace(/\\n/g,'<br>'):'(답안을 작성하지 않았습니다.)'}</div><div class="answer" style="margin-top:9px;padding:10px;background:#eef5f8;border-radius:9px"><b>예시 답안 · 직접 비교해 보세요</b><br>${q[2]}</div><div class="selfscore">내가 판단한 점수 <input type="number" min="0" max="${q[1]}" value="0" id="ss${i}" oninput="calcTotal()"> / ${q[1]}점</div>`;sr.appendChild(d)});document.getElementById('exam').classList.add('hidden');document.getElementById('results').classList.remove('hidden');window.scrollTo({top:0,behavior:'smooth'});calcTotal()}
+function calcTotal(){let total=Number(document.getElementById('mcScore').textContent.split(' ')[0]);essays.forEach((q,i)=>{let el=document.getElementById('ss'+i);if(el){let v=Math.max(0,Math.min(q[1],Number(el.value)||0));total+=v}});document.getElementById('totalScore').textContent=`${total} / 100점`;window.finalTotalScore=total}
+
+const SERVER_CONFIG_KEY='socialExamRankingServerV1';
+function getServer(){return (localStorage.getItem(SERVER_CONFIG_KEY)||'').replace(/\/+$/,'')}
+function setStatus(id,msg,isError=false){const el=document.getElementById(id);if(el){el.textContent=msg;el.style.color=isError?'#b34b37':'#687584'}}
+async function serverFetch(path,options={}){const base=getServer();if(!base)throw new Error('먼저 자체 서버 주소를 저장하세요.');const res=await fetch(base+path,{...options,headers:{'Content-Type':'application/json',...(options.headers||{})}});let data={};try{data=await res.json()}catch(e){}if(!res.ok)throw new Error(data.error||'서버 요청 실패 ('+res.status+')');return data}
+function saveServerConfig(){const url=document.getElementById('serverUrl').value.trim().replace(/\/+$/,'');if(!/^https:\/\/[a-z0-9.-]+(?::\d+)?$/i.test(url)){setStatus('lbStatus','공개 HTTPS 서버 주소를 올바르게 입력하세요.',true);return}localStorage.setItem(SERVER_CONFIG_KEY,url);setStatus('lbStatus','서버 연결 확인 중...');loadLeaderboard()}
+function formatTime(sec){const m=Math.floor(sec/60),s=sec%60;return m+'분 '+String(s).padStart(2,'0')+'초'}
+async function loadLeaderboard(){const body=document.getElementById('lbRows');setStatus('lbStatus','랭킹 불러오는 중...');try{const rows=await serverFetch('/api/leaderboard');body.innerHTML='';if(!rows.length){body.innerHTML='<tr><td colspan="4">아직 등록된 기록이 없습니다. 첫 기록을 등록해 보세요!</td></tr>'}rows.forEach((r,i)=>{const tr=document.createElement('tr');tr.innerHTML=`<td class="ranknum">${i+1}</td><td></td><td><b>${r.score}점</b></td><td>${formatTime(r.elapsed_seconds)}</td>`;tr.children[1].textContent=r.nickname;body.appendChild(tr)});setStatus('lbStatus','자체 서버 연결 완료 · TOP '+rows.length+' 표시 중')}catch(e){setStatus('lbStatus','연결 실패: '+e.message,true);body.innerHTML='<tr><td colspan="4">서버 배포 주소와 서버 실행 상태를 확인하세요.</td></tr>'}}
+async function submitLeaderboard(){if(submittedToBoard){setStatus('submitStatus','이번 시험 기록은 이미 등록했습니다.',true);return}const nickname=document.getElementById('nickname').value.trim();if(nickname.length<1||nickname.length>16){setStatus('submitStatus','닉네임은 1~16자로 입력하세요.',true);return}if(!getServer()){setStatus('submitStatus','먼저 자체 서버 연결 설정을 완료하세요.',true);document.querySelector('#leaderboard details').open=true;return}const score=Number(window.finalTotalScore||0);const elapsed=Math.max(1,2400-remaining);setStatus('submitStatus','랭킹에 기록을 등록하는 중...');try{await serverFetch('/api/scores',{method:'POST',body:JSON.stringify({nickname,score,elapsed_seconds:elapsed})});submittedToBoard=true;setStatus('submitStatus','랭킹 등록 완료! 전체 순위를 확인해 보세요.');await loadLeaderboard()}catch(e){setStatus('submitStatus','등록 실패: '+e.message,true)}}
+(function initLeaderboard(){const url=getServer();if(url)document.getElementById('serverUrl').value=url;if(url)loadLeaderboard()})();
+</script>
+</body></html>
